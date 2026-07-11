@@ -11,6 +11,8 @@
   `model.matrix` and `estfun` cannot be matched and thus working residuals cannot
   be obtained.
 
+* Updated `structure()` calls to use `dimnames = ...` instead of `.Dimnames = ...`.
+
 * Fix BibTeX problems in vignettes (reported by Sebastian Meyer).
 
 
