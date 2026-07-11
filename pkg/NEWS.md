@@ -3,10 +3,6 @@
 * Added `estfun()` method for `multinom()` objects (from `nnet`) so that `sandwich()`,
   `vcovCL()` etc. are also supported.
 
-* In `vcovCL()` models from `feols()` (from package `fixest`) are now also recognized
-  as linear regression models (in addition to models from `lm()`).
-  FIXME: Check df correction and inform Laurent.
-
 * Added informative error message in `meatHC()` and `meatPC()` if dimension of
   `model.matrix` and `estfun` cannot be matched and thus working residuals cannot
   be obtained.
