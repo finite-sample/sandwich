@@ -11,6 +11,8 @@
   `model.matrix` and `estfun` cannot be matched and thus working residuals cannot
   be obtained.
 
+* Fix BibTeX problems in vignettes (reported by Sebastian Meyer).
+
 
 # sandwich 3.1-1
 
