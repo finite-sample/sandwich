@@ -3,7 +3,7 @@
 * Code repository changed from R-Forge to Codeberg at:
   <https://codeberg.org/zeileis/sandwich/>
 
-* Added basic altdoc page with overview and documentation at:
+* The pkgdown website is now hosted at:
   <https://zeileis.codeberg.page/sandwich/>
 
 
