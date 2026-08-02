@@ -1,5 +1,5 @@
-url: "https://sandwich.R-Forge.R-project.org/"
-destination: "../www/"
+url: "https://zeileis.codeberg.page/sandwich/"
+destination: "../sandwich-pages/"
 
 template:
   assets: "pkgdown/assets/"

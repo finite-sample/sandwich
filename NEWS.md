@@ -1,3 +1,12 @@
+# sandwich 3.1-3
+
+* Code repository changed from R-Forge to Codeberg at:
+  <https://codeberg.org/zeileis/sandwich/>
+
+* Added basic altdoc page with overview and documentation at:
+  <https://zeileis.codeberg.page/sandwich/>
+
+
 # sandwich 3.1-2
 
 * Added `estfun()` method for `multinom()` objects (from `nnet`) so that `sandwich()`,
