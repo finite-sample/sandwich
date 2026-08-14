@@ -67,7 +67,7 @@ vcovBS.default <- function(x, cluster = NULL, R = 250, start = FALSE, type = "xy
     } else {
       if(.Platform$OS.type == "windows") {
         cl_cores <- parallel::makeCluster(cores)
-	on.exit(parallel::stopCluster(cl_cores))
+        on.exit(parallel::stopCluster(cl_cores))
         function(X, FUN, ...) parallel::parLapply(cl = cl_cores, X, FUN, ...)
       } else {
         function(X, FUN, ...) parallel::mclapply(X, FUN, ..., mc.cores = cores)

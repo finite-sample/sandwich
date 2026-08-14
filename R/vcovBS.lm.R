@@ -65,7 +65,7 @@ vcovBS.lm <- function(x, cluster = NULL, R = 250, type = "xy", ..., fix = FALSE,
   wild <- switch(type,
     "rademacher" = function(n) sample(c(-1, 1), n, replace = TRUE),
     "mammen"     = function(n) sample(c(-1, 1) * (sqrt(5) + c(-1, 1))/2, n, replace = TRUE,
-				 prob = (sqrt(5) + c(1, -1))/(2 * sqrt(5))),
+                                 prob = (sqrt(5) + c(1, -1))/(2 * sqrt(5))),
     "norm"       = function(n) rnorm(n),
     "webb"       = function(n) sample(c(-sqrt((3:1)/2), sqrt((1:3)/2)), n, replace = TRUE),
     wild
@@ -131,13 +131,13 @@ vcovBS.lm <- function(x, cluster = NULL, R = 250, type = "xy", ..., fix = FALSE,
         j <- unlist(cli[sample(names(cli), length(cli), replace = TRUE)])
         yboot <- xfit$fit + xfit$res[j]
         yboot <- (yboot - off) * sqrt(wts)
-	if(qrjoint) yboot else qr.coef(xfit$qr, yboot)
+        if(qrjoint) yboot else qr.coef(xfit$qr, yboot)
       },
       function(j, ...) {
         j <- wild(nlevels(cli))
         yboot <- xfit$fit + xfit$res * j[cli]
         yboot <- (yboot - off) * sqrt(wts)
-	if(qrjoint) yboot else qr.coef(xfit$qr, yboot)
+        if(qrjoint) yboot else qr.coef(xfit$qr, yboot)
       }
     )
 

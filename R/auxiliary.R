@@ -1,4 +1,4 @@
-nobs0	<- function(x, ...) {
+nobs0 <- function(x, ...) {
   nobs1 <- if("stats4" %in% loadedNamespaces()) stats4::nobs else stats::nobs
   nobs2 <- function(x, ...) NROW(residuals(x, ...))
   rval <- try(nobs1(x, ...), silent = TRUE)
@@ -6,7 +6,7 @@ nobs0	<- function(x, ...) {
   return(rval)
 }
 
-vcov0	<- if(!is.null(vcov)) vcov else {
+vcov0 <- if(!is.null(vcov)) vcov else {
   if("stats4" %in% loadedNamespaces()) stats4::vcov else stats::vcov
 }
 
@@ -36,7 +36,7 @@ kweights <- function(x, kernel = c("Truncated", "Bartlett", "Parzen",
     "Parzen" = { 
       ifelse(ca * abs(x) > 1, 0, ifelse(ca * abs(x) < 0.5,
         1 - 6 * (ca * x)^2 + 6 * abs(ca * x)^3,
-	2 * (1 - abs(ca * x))^3))
+        2 * (1 - abs(ca * x))^3))
     },
     "Tukey-Hanning" = {
       ifelse(ca * abs(x) > 1, 0, (1 + cos(pi * ca * x))/2)
@@ -44,7 +44,7 @@ kweights <- function(x, kernel = c("Truncated", "Bartlett", "Parzen",
     "Quadratic Spectral" = {
       qs <- function(x) {
         y <- 6 * pi * x/5
-	3 * (1/y)^2 * (sin(y)/y - cos(y))
+        3 * (1/y)^2 * (sin(y)/y - cos(y))
       }
       w <- qs(x)
       if(length(ix <- which(abs(x) < 1e-3)) > 0L) {

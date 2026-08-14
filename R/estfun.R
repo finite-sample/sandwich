@@ -221,7 +221,7 @@ estfun.hurdle <- function(x, ...) {
     "negbin" = {
       (Y - mu * (Y + theta)/(mu + theta)) - exp(pnbinom(0, mu = mu, size = theta, log.p = TRUE) -
         pnbinom(0, mu = mu, size = theta, lower.tail = FALSE, log.p = TRUE) +
-	log(theta) - log(mu + theta) + eta)
+        log(theta) - log(mu + theta) + eta)
     })
   
   ## zero component: working residuals

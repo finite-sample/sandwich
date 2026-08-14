@@ -12,8 +12,8 @@ vcovHAC.default <- function(x, order.by = NULL, prewhite = FALSE,
 {
   rval <- meatHAC(x, order.by = order.by, prewhite = prewhite,
                   weights = weights, adjust = adjust, diagnostics = diagnostics,
-		  ar.method = ar.method, data = data)
-				  
+                  ar.method = ar.method, data = data)
+
   if(sandwich) {
     diagn <- attr(rval, "diagnostics")
     rval <- sandwich(x, meat. = rval, ...)
@@ -223,7 +223,7 @@ bwAndrews <- function(x, order.by = NULL, kernel = c("Quadratic Spectral", "Trun
     denum <- sum(weights * ((1 + arma.coef["psi",]) * arma.coef["sigma",]/(1-arma.coef["rho",]))^4)
     alpha2 <- sum(weights * 4 * ((1 + arma.coef["rho",] * arma.coef["psi",]) * (
                                   arma.coef["rho",] + arma.coef["psi",]))^2 * arma.coef["sigma",]^4/
-				 (1-arma.coef["rho",])^8) / denum
+                                 (1-arma.coef["rho",])^8) / denum
     alpha1 <- sum(weights * 4 * ((1 + arma.coef["rho",] * arma.coef["psi",]) * (
                                   arma.coef["rho",] + arma.coef["psi",]))^2 * arma.coef["sigma",]^4/
                                  ((1-arma.coef["rho",])^6 * (1+arma.coef["rho",])^2)) / denum
@@ -247,7 +247,7 @@ kernHAC <- function(x, order.by = NULL, prewhite = 1, bw = bwAndrews,
   myweights <- function(x, order.by = NULL, prewhite = FALSE, ar.method = "ols", data = list())
     weightsAndrews(x, order.by = order.by, prewhite = prewhite, bw = bw,
                    kernel = kernel, approx = approx, ar.method = ar.method, tol = tol,
-		   data = data, verbose = verbose, ...)
+                   data = data, verbose = verbose, ...)
   vcovHAC(x, order.by = order.by, prewhite = prewhite,
     weights = myweights, adjust = adjust, diagnostics = diagnostics,
     sandwich = sandwich, ar.method = ar.method, data = data)

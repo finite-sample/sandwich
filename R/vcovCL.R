@@ -138,23 +138,23 @@ meatCL <- function(x, cluster = NULL, type = NULL, cadjust = TRUE, multi0 = FALS
     if(type %in% c("HC2", "HC3")) {
       if(g[i] == n) {
         efi <- if(type == "HC2") {
-	  efi/sqrt(1 - h)
-	} else {
-	  efi/(1 - hatvalues(x))
-	}
+          efi/sqrt(1 - h)
+        } else {
+          efi/(1 - hatvalues(x))
+        }
       } else {
         for(j in unique(cluster[[i]])) {
-	  ij <- which(cluster[[i]] == j)
-	  Hij <- if(is.null(w)) {
-	    X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE])
-	  } else {
-	    X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE]) %*% diag(w[ij], nrow = length(ij), ncol = length(ij))
-	  }
+          ij <- which(cluster[[i]] == j)
+          Hij <- if(is.null(w)) {
+            X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE])
+          } else {
+            X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE]) %*% diag(w[ij], nrow = length(ij), ncol = length(ij))
+          }
           Hij <- if(type == "HC2") {
-	    matrixpower(diag(length(ij)) - Hij, -0.5)
-	  } else {
-	    solve(diag(length(ij)) - Hij)
-	  }
+            matrixpower(diag(length(ij)) - Hij, -0.5)
+          } else {
+            solve(diag(length(ij)) - Hij)
+          }
           efi[ij, ] <- drop(Hij %*% res[ij]) * X[ij, , drop = FALSE]
         }
       }
