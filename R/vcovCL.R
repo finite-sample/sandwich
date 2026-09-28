@@ -153,7 +153,7 @@ meatCL <- function(x, cluster = NULL, type = NULL, cadjust = TRUE, multi0 = FALS
           Hij <- if(type == "HC2") {
             matrixpower(diag(length(ij)) - Hij, -0.5)
           } else {
-            solve(diag(length(ij)) - Hij)
+            chol2inv(chol(diag(length(ij)) - Hij))
           }
           efi[ij, ] <- drop(Hij %*% res[ij]) * X[ij, , drop = FALSE]
         }

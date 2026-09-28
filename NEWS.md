@@ -1,3 +1,12 @@
+# sandwich 3.1-3.99
+
+* In `vcovCL(..., type = "HC3")` when computing the inverse of I - H
+  in the different clusters, the code now uses `chol2inv(chol(...))`
+  instead of `solve(...)` which can reduce the computation times by
+  a factor of about a half if the number of clusters or the size of
+  clusters is relatively large (benchmarked by Robin Peer).
+
+
 # sandwich 3.1-3
 
 * Code repository changed from R-Forge to Codeberg at:
