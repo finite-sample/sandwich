@@ -8,6 +8,8 @@
 
 \usage{
 isoacf(x, lagmax = NULL, weave1 = FALSE)
+
+pava.blocks(x, w = rep(1, length(x)), b = rep(1, length(x)), up = TRUE)
 }
 
 \arguments{
@@ -17,6 +19,10 @@ isoacf(x, lagmax = NULL, weave1 = FALSE)
    uses the \code{acf.R} and \code{pava.blocks} function from the
    original \code{weave} package, otherwise R's own \code{acf} and
    \code{isoreg} functions are used.}
+ \item{w}{numeric vector of weights for \code{x}.}
+ \item{b}{numeric block count for every value.}
+ \item{up}{logical indicating whether the direction of monotonicity
+   is upwards or downards.}
 }
 
 \details{

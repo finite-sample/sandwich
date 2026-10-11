@@ -1,5 +1,11 @@
 # sandwich 3.1-3.99
 
+* In `vcovCL()` the default `type = "HC1"` is now also used for `glm` and `gam`
+  objects with `family = gaussian` (like for `lm` objects as before).
+
+* Scaling by the dispersion estimate was missing in `bread.gam()`  
+  (#1 reported by Amal Tawfik, HEC).
+
 * In `vcovCL(..., type = "HC3")` when computing the inverse of I - H
   in the different clusters, the code now uses `chol2inv(chol(...))`
   instead of `solve(...)` which can reduce the computation times by

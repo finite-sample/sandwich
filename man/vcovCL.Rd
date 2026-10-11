@@ -23,7 +23,8 @@ meatCL(x, cluster = NULL, type = NULL, cadjust = TRUE, multi0 = FALSE, \dots)
     By default (\code{cluster = NULL}), either \code{attr(x, "cluster")} is used
     (if any) or otherwise every observation is assumed to be its own cluster.}
   \item{type}{a character string specifying the estimation type (HC0--HC3). 
-    The default is to use \code{"HC1"} for \code{lm} objects and
+    The default is to use \code{"HC1"} for \code{lm} objects
+    (or \code{glm} or \code{gam} objects with \code{family = gaussian}) and
     \code{"HC0"} otherwise.}
   \item{sandwich}{logical. Should the sandwich estimator be computed?
     If set to \code{FALSE} only the meat matrix is returned.}

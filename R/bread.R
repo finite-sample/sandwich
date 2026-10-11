@@ -33,7 +33,7 @@ bread.glm <- function(x, ...)
   sx <- summary(x)
   wres <- as.vector(residuals(x, "working")) * weights(x, "working")
   dispersion <- if(substr(x$family$family, 1L, 17L) %in% c("poisson", "binomial", "Negative Binomial")) 1
-    else sum(wres^2)/sum(weights(x, "working"))
+    else sum(wres^2, na.rm = TRUE)/sum(weights(x, "working"), na.rm = TRUE)
   return(sx$cov.unscaled * as.vector(sum(sx$df[1L:2L])) * dispersion)
 }
 
@@ -61,7 +61,10 @@ bread.gam <- function(x, ...)
 {
   if(!is.null(x$na.action)) class(x$na.action) <- "omit"
   sx <- summary(x)
-  sx$cov.unscaled * sx$n
+  wres <- as.vector(residuals(x, "working")) * weights(x, "working")
+  dispersion <- if(substr(x$family$family, 1L, 17L) %in% c("poisson", "binomial", "Negative Binomial")) 1
+    else sum(wres^2, na.rm = TRUE)/sum(weights(x, "working"), na.rm = TRUE)
+  return(sx$cov.unscaled * sx$n * dispersion)
 }
   
 bread.coxph <- function(x, ...)
