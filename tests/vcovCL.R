@@ -77,6 +77,15 @@ rownames(hc2m) <- colnames(hc2m) <- rownames(hc2b) <- colnames(hc2b) <- c("(Inte
 all.equal(vcovCL(m, cluster = ~ firm, type = "HC2"), hc2m, tol = 1e-5)
 all.equal(vcovCL(b, cluster = ~ firm, type = "HC2"), hc2b, tol = 3e-4)
 
+## clustered HC2/HC3 with weights: weighted lm = OLS on sqrt(w)-transformed data,
+## and clustered HC3 = clustered jackknife for linear models
+PetersenCL$w <- 1 + (PetersenCL$year %% 4)/2
+mw <- lm(y ~ x, data = PetersenCL, weights = w)
+mt <- lm(I(sqrt(w) * y) ~ 0 + sqrt(w) + I(sqrt(w) * x), data = PetersenCL)
+stopifnot(all.equal(unname(vcovCL(mw, cluster = ~ firm, type = "HC2")), unname(vcovCL(mt, cluster = ~ firm, type = "HC2"))))
+stopifnot(all.equal(vcovCL(mw, cluster = ~ firm, type = "HC3", cadjust = FALSE),
+  vcovBS(mw, cluster = ~ firm, type = "jackknife", center = "estimate")))
+
 
 ## more examples
 
