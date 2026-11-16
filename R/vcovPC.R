@@ -92,6 +92,15 @@ meatPC <- function(x, cluster = NULL, order.by = NULL, pairwise = FALSE, kroneck
   res <- rowMeans(ef/X, na.rm = TRUE)
   res[apply(abs(ef) < .Machine$double.eps, 1L, all)] <- 0
 
+  ## sort by cluster and by time within cluster: the balanced case below
+  ## splits res by cluster into a time x cluster matrix and pairs it with
+  ## X through kronecker(sigma, I_t), both of which require this row order
+  index <- order(cluster, order.by)
+  X <- X[index, , drop = FALSE]
+  res <- res[index]
+  cluster <- cluster[index]
+  order.by <- order.by[index]
+
     ## balanced panel
     balanced <- isTRUE(length(unique(table(cluster, order.by))) == 1L)
     if(balanced) {

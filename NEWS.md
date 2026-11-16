@@ -1,5 +1,11 @@
 # sandwich 3.1-3.99
 
+* `vcovPC()` and `meatPC()` gave wrong results for balanced panels whose
+  rows were not sorted by cluster and, within cluster, by time, e.g., data
+  sorted by year and then firm. The `order.by` information was only used to
+  check balancedness, not to align the residuals in time. The observations
+  are now sorted by `cluster` and `order.by` before computing the meat.
+
 * In `vcovCL()` the default `type = "HC1"` is now also used for `glm` and `gam`
   objects with `family = gaussian` (like for `lm` objects as before).
 
