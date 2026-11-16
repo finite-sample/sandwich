@@ -1,5 +1,17 @@
 # sandwich 3.1-3.99
 
+* Clustered `vcovCL(..., type = "HC2")` and `type = "HC3"` gave wrong results
+  for models with weights, i.e., weighted `lm` and all `glm` objects with
+  non-constant working weights (e.g., logit, Poisson). The bias adjustment
+  for cluster g was computed from the block X_g (X'WX)^-1 X_g' W_g but applied
+  to the already weighted working residuals, which requires its transpose
+  W_g X_g (X'WX)^-1 X_g'. Now weighted least squares gives the same result as
+  OLS on the sqrt(w)-transformed data, and HC3 coincides with the clustered
+  jackknife from `vcovBS(..., type = "jackknife", center = "estimate")` for
+  weighted linear models. Note also that the HC3 speed-up via `chol()` (see
+  below) is only valid for the symmetric block in unweighted models, so
+  `solve()` is used again for weighted models.
+
 * In `vcovCL()` the default `type = "HC1"` is now also used for `glm` and `gam`
   objects with `family = gaussian` (like for `lm` objects as before).
 

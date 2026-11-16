@@ -147,15 +147,21 @@ meatCL <- function(x, cluster = NULL, type = NULL, cadjust = TRUE, multi0 = FALS
       } else {
         for(j in unique(cluster[[i]])) {
           ij <- which(cluster[[i]] == j)
+          ## with weights, res = W e already contains the weights, so the adjustment
+          ## (I - H_gg)^p with H_gg = X_g (X'WX)^-1 X_g' W_g must be applied to e
+          ## before weighting: X_g' W_g (I - H_gg)^p e_g = X_g' (I - H_gg')^p res_g,
+          ## hence the transposed block W_g X_g (X'WX)^-1 X_g' (not symmetric)
           Hij <- if(is.null(w)) {
             X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE])
           } else {
-            X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE]) %*% diag(w[ij], nrow = length(ij), ncol = length(ij))
+            w[ij] * (X[ij, , drop = FALSE] %*% XX1 %*% t(X[ij, , drop = FALSE]))
           }
           Hij <- if(type == "HC2") {
             matrixpower(diag(length(ij)) - Hij, -0.5)
-          } else {
+          } else if(is.null(w)) {
             chol2inv(chol(diag(length(ij)) - Hij))
+          } else {
+            solve(diag(length(ij)) - Hij)
           }
           efi[ij, ] <- drop(Hij %*% res[ij]) * X[ij, , drop = FALSE]
         }
