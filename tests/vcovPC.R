@@ -16,6 +16,13 @@ pc1
 (pc2 <- sqrt(diag(sandwich::vcovPC(m, cluster = PetersenCL$firm, order.by = PetersenCL$year))))
 all.equal(pc1, pc2, tolerance = 1e-5)
 
+## row order must not matter: same panel sorted by year (then firm) and shuffled
+PY <- PetersenCL[order(PetersenCL$year, PetersenCL$firm), ]
+set.seed(1)
+PS <- PetersenCL[sample(nrow(PetersenCL)), ]
+stopifnot(all.equal(sandwich::vcovPC(lm(y ~ x, data = PY), cluster = ~ firm + year), sandwich::vcovPC(m, cluster = ~ firm + year)))
+stopifnot(all.equal(sandwich::vcovPC(lm(y ~ x, data = PS), cluster = PS$firm, order.by = PS$year), sandwich::vcovPC(m, cluster = ~ firm + year)))
+
 
 ## sandwich::vcovPC compared to pcse::vcovPC
 if(!require("pcse")) q()
