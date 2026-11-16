@@ -106,7 +106,8 @@ meatPL <- function(x, cluster = NULL, order.by = NULL,
     order.by <- as.integer(factor(order.by))
     nt <- order.by[length(order.by)]
     cluster <- as.integer(factor(cluster))
-    nc <- cluster[length(cluster)]
+    ## the data are sorted by order.by only, so the last cluster code need not be the largest
+    nc <- max(cluster)
     rownames(ef) <- paste(order.by, cluster, sep = "-")
   }  
 

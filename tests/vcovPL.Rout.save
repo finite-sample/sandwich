@@ -28,6 +28,12 @@ x           2.222292e-05 7.934905e-04
 (Intercept) 5.932790e-04 2.221403e-05
 x           2.221403e-05 7.931731e-04
 > 
+> ## aggregate = FALSE: row order must not matter (firms in descending order)
+> PD <- PetersenCL[order(-PetersenCL$firm, PetersenCL$year), ]
+> stopifnot(all.equal(
++   vcovPL(lm(y ~ x, data = PD), cluster = ~ firm + year, lag = 3, aggregate = FALSE),
++   vcovPL(m, cluster = ~ firm + year, lag = 3, aggregate = FALSE)))
+> 
 > 
 > data("InstInnovation", package = "sandwich")
 > n <- glm(cites ~ institutions, family = poisson, data = InstInnovation)
