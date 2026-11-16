@@ -5,6 +5,12 @@ m <- lm(y ~ x, data = PetersenCL)
 vcovPL(m, cluster = ~ firm + year, adjust = TRUE)
 vcovPL(m, cluster = ~ firm + year, adjust = FALSE)
 
+## aggregate = FALSE: row order must not matter (firms in descending order)
+PD <- PetersenCL[order(-PetersenCL$firm, PetersenCL$year), ]
+stopifnot(all.equal(
+  vcovPL(lm(y ~ x, data = PD), cluster = ~ firm + year, lag = 3, aggregate = FALSE),
+  vcovPL(m, cluster = ~ firm + year, lag = 3, aggregate = FALSE)))
+
 
 data("InstInnovation", package = "sandwich")
 n <- glm(cites ~ institutions, family = poisson, data = InstInnovation)

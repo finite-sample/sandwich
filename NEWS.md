@@ -1,5 +1,12 @@
 # sandwich 3.1-3.99
 
+* `vcovPL(..., aggregate = FALSE)` and `meatPL(..., aggregate = FALSE)` took
+  the number of clusters from the cluster code of the last observation after
+  sorting by time. Unless that observation happened to belong to the last
+  cluster, the within-cluster serial covariances of the remaining clusters were
+  silently dropped, so the result depended on the row order of the data.
+  Now the number of clusters is the largest cluster code.
+
 * In `vcovCL()` the default `type = "HC1"` is now also used for `glm` and `gam`
   objects with `family = gaussian` (like for `lm` objects as before).
 
